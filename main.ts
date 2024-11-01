@@ -1,13 +1,25 @@
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
+    if (controller.A.isPressed()) {
+        tiles.setTileAt(location, assets.tile`myTile0`)
+        info.changeScoreBy(1)
+    }
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
     if (info.score() == 5) {
         tiles.setCurrentTilemap(tilemap`level0`)
         game.splash("Level 2", "Press A to start")
+        game.showLongText("Sluk alle computerne ved at trykke på A, men pas på spøgelserne", DialogLayout.Bottom)
         Player_1.setPosition(2, 4)
+        myEnemy.vx += 10
+        myEnemy.vy += 10
+    } else {
+        game.showLongText("Du forbruger stadig for meget strøm", DialogLayout.Center)
     }
 })
 function Level_1 () {
     tiles.setCurrentTilemap(tilemap`level2`)
     game.splash("Level 1", "Press A to start")
+    game.showLongText("Sluk alle lamperne (5) ved at trykke på A, men pas på spøgelserne", DialogLayout.Bottom)
     Player_1 = sprites.create(assets.image`myImage`, SpriteKind.Player)
     Player_1.setPosition(25, 25)
     animation.runImageAnimation(
@@ -56,15 +68,26 @@ function Enemyting () {
     }
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
-    tiles.setTileAt(location, assets.tile`myTile1`)
-    info.changeScoreBy(1)
+    if (controller.A.isPressed()) {
+        tiles.setTileAt(location, assets.tile`myTile1`)
+        info.changeScoreBy(1)
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function (sprite, location) {
+    if (info.score() == 11) {
+        game.gameOver(true)
+        game.setGameOverEffect(true, effects.confetti)
+    } else {
+        game.showLongText("Du forbruger stadig for meget strøm", DialogLayout.Center)
+    }
 })
 info.onLifeZero(function () {
     game.gameOver(false)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
-    pause(500)
+    scene.cameraShake(4, 500)
+    pause(1000)
 })
 let myEnemy: Sprite = null
 let Player_1: Sprite = null
