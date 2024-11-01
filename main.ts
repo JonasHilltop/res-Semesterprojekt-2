@@ -5,7 +5,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, lo
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
-    if (info.score() == 5) {
+    if (info.score() == 0) {
         tiles.setCurrentTilemap(tilemap`level0`)
         game.splash("Level 2", "Press A to start")
         game.showLongText("Sluk alle computerne ved at trykke på A, men pas på spøgelserne", DialogLayout.Bottom)
@@ -15,6 +15,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, l
     } else {
         game.showLongText("Du forbruger stadig for meget strøm", DialogLayout.Center)
     }
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sprite, location) {
+    info.changeLifeBy(1)
+    tiles.setTileAt(location, sprites.dungeon.chestOpen)
 })
 function Level_1 () {
     tiles.setCurrentTilemap(tilemap`level2`)
