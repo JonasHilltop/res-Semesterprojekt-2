@@ -19,7 +19,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, l
 function Level_1 () {
     tiles.setCurrentTilemap(tilemap`level2`)
     game.splash("Level 1", "Press A to start")
-    game.showLongText("Sluk alle lamperne (5) ved at trykke på A, men pas på spøgelserne", DialogLayout.Bottom)
+    game.showLongText("Sluk alle lamperne ved at trykke på A, men pas på spøgelserne", DialogLayout.Bottom)
     Player_1 = sprites.create(assets.image`myImage`, SpriteKind.Player)
     Player_1.setPosition(25, 25)
     animation.runImageAnimation(
@@ -31,7 +31,6 @@ function Level_1 () {
     controller.moveSprite(Player_1)
     Player_1.setStayInScreen(true)
     scene.cameraFollowSprite(Player_1)
-    Enemyting()
 }
 function Enemyting () {
     for (let index = 0; index < 3; index++) {
@@ -94,3 +93,4 @@ let Player_1: Sprite = null
 info.setLife(3)
 info.setScore(0)
 Level_1()
+Enemyting()
