@@ -1,25 +1,3 @@
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
-    if (controller.A.isPressed()) {
-        tiles.setTileAt(location, assets.tile`myTile0`)
-        info.changeScoreBy(1)
-    }
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
-    if (info.score() == 0) {
-        tiles.setCurrentTilemap(tilemap`level0`)
-        game.splash("Level 2", "Press A to start")
-        game.showLongText("Sluk alle computerne ved at trykke på A, men pas på spøgelserne", DialogLayout.Bottom)
-        Player_1.setPosition(2, 4)
-        myEnemy.vx += 10
-        myEnemy.vy += 10
-    } else {
-        game.showLongText("Du forbruger stadig for meget strøm", DialogLayout.Center)
-    }
-})
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sprite, location) {
-    info.changeLifeBy(1)
-    tiles.setTileAt(location, sprites.dungeon.chestOpen)
-})
 function Level_1 () {
     tiles.setCurrentTilemap(tilemap`level2`)
     game.splash("Level 1", "Press A to start")
@@ -36,6 +14,28 @@ function Level_1 () {
     Player_1.setStayInScreen(true)
     scene.cameraFollowSprite(Player_1)
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
+    if (controller.A.isPressed()) {
+        tiles.setTileAt(location, assets.tile`myTile0`)
+        info.changeScoreBy(1)
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
+    if (info.score() == 5) {
+        tiles.setCurrentTilemap(tilemap`level0`)
+        game.splash("Level 2", "Press A to start")
+        game.showLongText("Sluk alle computerne ved at trykke på A, men pas på spøgelserne", DialogLayout.Bottom)
+        Player_1.setPosition(2, 4)
+        myEnemy.vx += 10
+        myEnemy.vy += 10
+    } else {
+        game.showLongText("Du forbruger stadig for meget strøm", DialogLayout.Center)
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sprite, location) {
+    info.changeLifeBy(1)
+    tiles.setTileAt(location, sprites.dungeon.chestOpen)
+})
 function Enemyting () {
     for (let index = 0; index < 3; index++) {
         myEnemy = sprites.create(img`
@@ -64,7 +64,24 @@ function Enemyting () {
             ........................
             ........................
             `, SpriteKind.Enemy)
-        tiles.placeOnRandomTile(myEnemy, sprites.skillmap.islandTile4)
+        tiles.placeOnRandomTile(myEnemy, img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
         myEnemy.setVelocity(33, 26)
         myEnemy.setBounceOnWall(true)
         pause(5000)
